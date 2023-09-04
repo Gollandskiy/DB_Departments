@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33516.290
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Занятие в аудитории 1(29.08.2023)(ADO.NET)", "Занятие в аудитории 1(29.08.2023)(ADO.NET).csproj", "{8B332060-1044-456F-AD9A-5FF9FFEDC836}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8B332060-1044-456F-AD9A-5FF9FFEDC836}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B332060-1044-456F-AD9A-5FF9FFEDC836}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B332060-1044-456F-AD9A-5FF9FFEDC836}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B332060-1044-456F-AD9A-5FF9FFEDC836}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E440B970-29E0-432B-9637-5E623AC738E3}
+	EndGlobalSection
+EndGlobal

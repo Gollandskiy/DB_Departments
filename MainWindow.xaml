@@ -1,0 +1,50 @@
+﻿<Window x:Class="Занятие_в_аудитории_1_29._08._2023__ADO.NET_.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Занятие_в_аудитории_1_29._08._2023__ADO.NET_"
+        mc:Ignorable="d"
+        Loaded="Window_Loaded"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.ColumnSpan="2" Content="Database Monitor" HorizontalContentAlignment="Center"/>
+            <Label Grid.Column="0" Grid.Row="1" Content="Departments"/>
+            <Label Grid.Column="1" Grid.Row="1" Content="Departments" x:Name="DepartmentsCountLabel"/>
+
+            <Label Grid.Column="0" Grid.Row="2" Content="Top Chiefs"/>
+            <Label Grid.Column="1" Grid.Row="2" Content="TopChief" x:Name="TopChiefCountLabel"/>
+
+            <Label Grid.Column="0" Grid.Row="3" Content="HasChief"/>
+            <Label Grid.Column="1" Grid.Row="3" Content="HasChief" x:Name="HasChiefCountLabel"/>
+
+            <Label Grid.Column="0" Grid.Row="4" Content="ITDepartment"/>
+            <Label Grid.Column="1" Grid.Row="4" Content="ITDepartment" x:Name="ITCountLabel"/>
+
+            <Label Grid.Column="0" Grid.Row="5" Content="TwoDepartments"/>
+            <Label Grid.Column="1" Grid.Row="5" Content="TwoDepartments" x:Name="TwoDepartmentsCountLabel"/>
+
+        </Grid>
+    </Grid>
+</Window>
