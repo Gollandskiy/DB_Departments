@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Занятие_в_аудитории_1_29._08._2023__ADO.NET_;
 
@@ -11,9 +12,11 @@ using Занятие_в_аудитории_1_29._08._2023__ADO.NET_;
 namespace Занятие_в_аудитории_1_29._08._2023__ADO.NET_.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230911163037_NavMainDep")]
+    partial class NavMainDep
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -91,36 +94,20 @@ namespace Занятие_в_аудитории_1_29._08._2023__ADO.NET_.Migratio
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdChief");
-
                     b.HasIndex("IdMainDep");
-
-                    b.HasIndex("IdSecDep");
 
                     b.ToTable("Managers");
                 });
 
             modelBuilder.Entity("Занятие_в_аудитории_1_29._08._2023__ADO.NET_.Manager", b =>
                 {
-                    b.HasOne("Занятие_в_аудитории_1_29._08._2023__ADO.NET_.Manager", "Chief")
-                        .WithMany()
-                        .HasForeignKey("IdChief");
-
                     b.HasOne("Занятие_в_аудитории_1_29._08._2023__ADO.NET_.Department", "MainDep")
                         .WithMany()
                         .HasForeignKey("IdMainDep")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Занятие_в_аудитории_1_29._08._2023__ADO.NET_.Department", "SecDep")
-                        .WithMany()
-                        .HasForeignKey("IdSecDep");
-
-                    b.Navigation("Chief");
-
                     b.Navigation("MainDep");
-
-                    b.Navigation("SecDep");
                 });
 #pragma warning restore 612, 618
         }

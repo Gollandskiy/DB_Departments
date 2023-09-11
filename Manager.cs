@@ -22,5 +22,10 @@ namespace Занятие_в_аудитории_1_29._08._2023__ADO.NET_
         public DateTime? DeleteDt { get; set; }
         public String Email { get; set; } = null!;
         public String? Avatar { get; set; }
+
+        public Department MainDep { get; set; }
+        public Department? SecDep { get; set; }
+
+        public Manager Chief { get; set; }
     }
 }

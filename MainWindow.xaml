@@ -47,7 +47,7 @@
 
         </Grid>
         <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="0">
-            <StackPanel Orientation="Horizontal">
+            <WrapPanel Orientation="Horizontal">
                 <Button Content="One" x:Name="Button1"
                         Click="Button1_Click"/>
                 <Button Content="Two" x:Name="Button2"
@@ -68,7 +68,13 @@
                         Click="Button9_Click"/>
                 <Button Content="Ten" x:Name="Button10"
                         Click="Button10_Click"/>
-            </StackPanel>
+                <Button Content="Eleven" x:Name="Button11"
+                        Click="Button11_Click"/>
+                <Button Content="Twelve" x:Name="Button12"
+                        Click="Button12_Click"/>
+                <Button Content="Thirteen" x:Name="Button13"
+                        Click="Button13_Click"/>
+            </WrapPanel>
             <ListView Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Pairs}"
                       ScrollViewer.VerticalScrollBarVisibility="Auto">
             <ListView.View>

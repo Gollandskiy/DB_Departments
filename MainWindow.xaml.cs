@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -185,12 +186,47 @@ namespace Занятие_в_аудитории_1_29._08._2023__ADO.NET_
                 Pairs.Add(pair);
             }
         }
+        private void Button11_Click(object sender, RoutedEventArgs e)
+        {
+            var query = dataContext.Managers.Include(m => m.MainDep).
+                Select(m => new Pair { Key = m.Surname, Value = $"{m.MainDep.Name}/{m.SecDep.Name}" });
+
+            foreach (var pair in query)
+            {
+                Pairs.Add(pair);
+            }
+        }
+
+        private void Button12_Click(object sender, RoutedEventArgs e)
+        {
+            var query = dataContext.Managers.Include(m => m.SecDep).
+                Select(m => new Pair 
+                { Key = m.Surname, 
+                    Value = m.SecDep == null ? "--" : m.SecDep.Name });
+
+            foreach (var pair in query)
+            {
+                Pairs.Add(pair);
+            }
+        }
+        private void Button13_Click(object sender, RoutedEventArgs e)
+        {
+            var query = dataContext.Managers.Include(m => m.Chief).
+                Select(m => new Pair()
+                {
+                    Key = $"{m.Surname} {m.Name[0]}.{m.Secname[0]}",
+                    Value = m.Chief == null ? "--" : $"{m.Chief.Surname} {m.Chief.Name[0]}.{m.Chief.Secname[0]}"
+                });
+            foreach (var pair in query)
+            {
+                Pairs.Add(pair);
+            }
+        }
 
         public class Pair
         {
             public String Key { get; set; } = null;
             public String? Value { get; set; }
         }
-
     }
 }
