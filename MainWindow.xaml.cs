@@ -209,7 +209,7 @@ namespace Занятие_в_аудитории_1_29._08._2023__ADO.NET_
                 Pairs.Add(pair);
             }
         }
-        private void Button13_Click(object sender, RoutedEventArgs e)
+        private void Button13_Click(object sender, RoutedEventArgs e) // DZ
         {
             var query = dataContext.Managers.Include(m => m.Chief).
                 Select(m => new Pair()
