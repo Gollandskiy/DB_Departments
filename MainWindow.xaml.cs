@@ -44,8 +44,8 @@ namespace Занятие_в_аудитории_1_29._08._2023__ADO.NET_
 
         private void Button1_Click(object sender, RoutedEventArgs e)
         {
-           var query = dataContext.Managers.Where(m => m.IdMainDep == Guid.Parse("131ef84b-f06e-494b-848f-bb4bc0604266"))
-                .Select(m => new Pair { Key = m.Surname, Value = $"{m.Name[0]}.{m.Secname[0]}." });
+            var query = dataContext.Managers.Where(m => m.IdMainDep == Guid.Parse("131ef84b-f06e-494b-848f-bb4bc0604266"))
+                 .Select(m => new Pair { Key = m.Surname, Value = $"{m.Name[0]}.{m.Secname[0]}." });
             Pairs.Clear();
             foreach (var pair in query)
             {
@@ -58,17 +58,17 @@ namespace Занятие_в_аудитории_1_29._08._2023__ADO.NET_
             var query = dataContext.Managers.Join
                 (dataContext.Departments, m => m.IdMainDep, d => d.Id,
                 (m, d) => new Pair { Key = $"{m.Surname}", Value = d.Name }).Take(10);
-                 Pairs.Clear();
-                foreach (var pair in query)
-                {
-                    Pairs.Add(pair);
-                }
+            Pairs.Clear();
+            foreach (var pair in query)
+            {
+                Pairs.Add(pair);
             }
+        }
 
         private void Button3_Click(object sender, RoutedEventArgs e)
         {
             var query = dataContext.Managers.Join
-                (dataContext.Managers, m => m.IdChief, chief => chief.Id, (m, chief) => new Pair 
+                (dataContext.Managers, m => m.IdChief, chief => chief.Id, (m, chief) => new Pair
                 { Key = m.Surname, Value = chief.Surname }).OrderBy(pair => pair.Key).ToList();
             Pairs.Clear();
             foreach (var pair in query)
@@ -96,12 +96,101 @@ namespace Занятие_в_аудитории_1_29._08._2023__ADO.NET_
                 Pairs.Add(pair);
             }
         }
-    }
 
-    public class Pair 
-    {
-        public String Key { get; set; } = null;
-        public String? Value { get; set; }
-    }
+        private int _N;
+        public int N { get => _N++; set => _N = value; }
+        private void Button5_Click(object sender, RoutedEventArgs e)
+        {
+            N = 1;
+            var query = dataContext.Departments.Select(d => new Pair() { Key = (N).ToString(), Value = d.Name });
 
+
+            Pairs.Clear();
+            foreach (var pair in query)
+            {
+                Pairs.Add(pair);
+            }
+        }
+
+        private void Button6_Click(object sender, RoutedEventArgs e)
+        {
+            N = 1;
+            var query = dataContext.Departments.
+                OrderBy(d => d.Name).
+                AsEnumerable().Select(d => new Pair
+                {
+                    Key = (N).
+                ToString(),
+                    Value = d.Name
+                });
+            foreach (var pair in query)
+            {
+                Pairs.Add(pair);
+            }
+        }
+
+        private void Button7_Click(object sender, RoutedEventArgs e)
+        {
+            var query = dataContext.Departments.
+                GroupJoin(dataContext.Managers, d => d.Id, m => m.IdMainDep,
+                (dep, mans) => new Pair { Key = dep.Name, Value = mans.Count().ToString() });
+            foreach (var pair in query)
+            {
+                Pairs.Add(pair);
+            }
+        }
+
+        private void Button8_Click(object sender, RoutedEventArgs e)
+        {
+            var query = dataContext.Managers
+                .GroupJoin(dataContext.Managers, c => c.Id, d => d.IdChief,
+                (c, d) => new Pair { Key = $"{c.Surname} {c.Name[0]}.{c.Secname[0]}.", Value = d.Count().ToString() }).
+                OrderByDescending(pair => Convert.ToInt32(pair.Value)).Take(3);
+
+            foreach (var pair in query)
+            {
+                Pairs.Add(pair);
+            }
+
+        }
+        private void Button9_Click(object sender, RoutedEventArgs e)
+        {
+            var query = dataContext.Managers
+                .GroupBy(m => m.Surname)
+                .Select(group => new Pair
+                {
+                    Key = group.Key,
+                    Value = group.Count().ToString()
+                })
+                .Where(p => Convert.ToInt32(p.Value) > 1)
+                .ToList();
+
+            for (int i = 0; i < query.Count; i++)
+            {
+                query[i].Key = (i + 1) + ". " + query[i].Key;
+                Pairs.Add(query[i]);
+            }
+        }
+        private void Button10_Click(object sender, RoutedEventArgs e)
+        {
+            var query = dataContext.Departments.GroupJoin(
+                                dataContext.Managers,
+                                d => d.Id,
+                                m => m.IdSecDep,
+                                (d, m) => new Pair { Key = d.Name, Value = m.Count().ToString() }
+                            );
+
+            foreach (var pair in query)
+            {
+                Pairs.Add(pair);
+            }
+        }
+
+        public class Pair
+        {
+            public String Key { get; set; } = null;
+            public String? Value { get; set; }
+        }
+
+    }
 }

@@ -56,8 +56,21 @@
                         Click="Button3_Click"/>
                 <Button Content="Four" x:Name="Button4"
                         Click="Button4_Click"/>
+                <Button Content="Five" x:Name="Button5"
+                        Click="Button5_Click"/>
+                <Button Content="Six" x:Name="Button6"
+                        Click="Button6_Click"/>
+                <Button Content="Seven" x:Name="Button7"
+                        Click="Button7_Click"/>
+                <Button Content="Eight" x:Name="Button8"
+                        Click="Button8_Click"/>
+                <Button Content="Nine" x:Name="Button9"
+                        Click="Button9_Click"/>
+                <Button Content="Ten" x:Name="Button10"
+                        Click="Button10_Click"/>
             </StackPanel>
-            <ListView Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Pairs}">
+            <ListView Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Pairs}"
+                      ScrollViewer.VerticalScrollBarVisibility="Auto">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Key" DisplayMemberBinding="{Binding Path=Key}"/>
