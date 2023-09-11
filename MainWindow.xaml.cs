@@ -24,6 +24,7 @@ namespace Занятие_в_аудитории_1_29._08._2023__ADO.NET_
     {
         private DataContext dataContext;
         public ObservableCollection<Pair> Pairs { get; set; }
+        public ObservableCollection<Department> DepartmentsV { get; set; }
         public MainWindow()
         {
             InitializeComponent();
@@ -40,6 +41,11 @@ namespace Занятие_в_аудитории_1_29._08._2023__ADO.NET_
             Guid itG = Guid.Parse(dataContext.Departments.Where(depart => depart.Name == "IT відділ").Select(depart => depart.Id).First().ToString());
             ITCountLabel.Content = dataContext.Managers.Where(manager => manager.IdMainDep == itG || manager.IdSecDep == itG).Count().ToString();
             TwoDepartmentsCountLabel.Content = dataContext.Managers.Where(manager => manager.IdMainDep != null && manager.IdSecDep != null).Count().ToString();
+            dataContext.Departments.Load();
+            DepartmentsV = dataContext.Departments.Local.ToObservableCollection();
+            DepartmentsV = new ObservableCollection<Department>(dataContext.Departments.Where(depart => depart.DeleteDt == null));
+            departmentsList.ItemsSource = DepartmentsV;
+            //DepartmentsV.CollectionChanged(null, new System.Collections.Specialized.NotifyCollectionChangedEventArgs(System.Collections.Specialized.NotifyCollectionChangedAction.Reset));
 
         }
 
@@ -220,6 +226,60 @@ namespace Занятие_в_аудитории_1_29._08._2023__ADO.NET_
             foreach (var pair in query)
             {
                 Pairs.Add(pair);
+            }
+        }
+        private void ListViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (sender is ListViewItem item)
+            {
+                if (item.Content is Department department)
+                {
+                    CrudDepartment dialog = new();
+                    dialog.Department = department;
+                    if (dialog.ShowDialog() ?? false)
+                    {
+                        if (dialog.Department != null)
+                        {
+                            if (dialog.isDeleted)
+                            {
+                                department.DeleteDt = DateTime.Now;
+                                dataContext.SaveChanges();
+                            }
+                            else
+                            {
+                                var dep = dataContext.Departments.Find(department.Id);
+                                if (dep != null)
+                                {
+                                    dep.Name = department.Name;
+                                }
+                                dataContext.SaveChanges();
+                                int index = DepartmentsV.IndexOf(department);
+                                DepartmentsV.Remove(department);
+                                DepartmentsV.Insert(index, department);
+                            }
+                        }
+                        else
+                        {
+                            dataContext.Departments.Remove(department);
+                            dataContext.SaveChanges();
+                        }
+                        }
+                    }
+            }
+        }
+        private void AddDepartmentButton_Click(object sender, RoutedEventArgs e)
+        {
+            Department NDepartment = new()
+            {
+                Id = Guid.NewGuid(),
+                Name = null
+            };
+            CrudDepartment dialog = new();
+            dialog.Department = NDepartment;
+            if (dialog.ShowDialog() ?? false)
+            {
+                dataContext.Departments.Add(NDepartment);
+                dataContext.SaveChanges();
             }
         }
 

@@ -86,5 +86,24 @@
             </ListView.View>
             </ListView>
         </StackPanel>
+        <StackPanel Grid.Column ="1" Orientation="Vertical">
+            <Button x:Name="AddDepartmentButton" Content="Add Department" Click="AddDepartmentButton_Click"/>
+            <ListView x:Name="departmentsList" ItemsSource="{Binding DepartmentsV}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Id"
+                                    DisplayMemberBinding="{Binding Path=Id}"/>
+                    <GridViewColumn Header="Name"
+                                    DisplayMemberBinding="{Binding Path=Name}"/>
+                </GridView>
+            </ListView.View>
+            <ListView.Resources>
+                <Style TargetType="ListViewItem">
+                    <EventSetter Event="MouseDoubleClick"
+                                 Handler="ListViewItem_MouseDoubleClick"/>
+                </Style>
+            </ListView.Resources>
+        </ListView>
+        </StackPanel>
     </Grid>
 </Window>
