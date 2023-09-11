@@ -6,6 +6,9 @@
 ![image](https://github.com/Gollandskiy/DB_Departments/assets/126692933/33b7585d-c7d7-4c1b-b0ad-fa7672bf8430)
 ![image](https://github.com/Gollandskiy/DB_Departments/assets/126692933/dbeebfa7-7fe2-4aef-9313-6dce6a8e438f)
 ![image](https://github.com/Gollandskiy/DB_Departments/assets/126692933/b4f4e36a-c2d5-4526-9511-8f449bd4f4e3)
+11.09.2023(3) - Работник - его шеф, если шефа нет, то "--"
+![image](https://github.com/Gollandskiy/DB_Departments/assets/126692933/5d19c9e1-f224-4c33-9266-0d112f852a34)
+
 
 
 
