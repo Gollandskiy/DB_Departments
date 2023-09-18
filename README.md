@@ -11,6 +11,8 @@
 12.09.2023
 ![image](https://github.com/Gollandskiy/DB_Departments/assets/126692933/f1ae5d57-1204-460a-b50c-8ccad62477ff)
 ![image](https://github.com/Gollandskiy/DB_Departments/assets/126692933/45ff12bd-ffcf-4b24-b10d-34c0931924c1)
+18.09.2023
+![image](https://github.com/Gollandskiy/DB_Departments/assets/126692933/d2d03ace-eef2-4ec5-9cba-439d56465677)
 
 
 
