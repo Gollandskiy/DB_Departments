@@ -12,5 +12,9 @@ namespace Занятие_в_аудитории_1_29._08._2023__ADO.NET_
         public String Name { get; set; }
         public DateTime? DeleteDt { get; set; }
 
+
+        public IEnumerable<Manager> MainManagers { get; set; }
+        public List<Manager> SecManagers { get; set; }
+
     }
 }

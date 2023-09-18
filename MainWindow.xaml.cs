@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,6 +26,7 @@ namespace Занятие_в_аудитории_1_29._08._2023__ADO.NET_
         private DataContext dataContext;
         public ObservableCollection<Pair> Pairs { get; set; }
         public ObservableCollection<Department> DepartmentsV { get; set; }
+        private ICollectionView departmentsListView;
         public MainWindow()
         {
             InitializeComponent();
@@ -45,6 +47,8 @@ namespace Занятие_в_аудитории_1_29._08._2023__ADO.NET_
             DepartmentsV = dataContext.Departments.Local.ToObservableCollection();
             DepartmentsV = new ObservableCollection<Department>(dataContext.Departments.Where(depart => depart.DeleteDt == null));
             departmentsList.ItemsSource = DepartmentsV;
+            departmentsListView = CollectionViewSource.GetDefaultView(DepartmentsV);
+            departmentsListView.Filter = item => (item as Department)?.DeleteDt == null;
             //DepartmentsV.CollectionChanged(null, new System.Collections.Specialized.NotifyCollectionChangedEventArgs(System.Collections.Specialized.NotifyCollectionChangedAction.Reset));
 
         }
@@ -228,6 +232,43 @@ namespace Занятие_в_аудитории_1_29._08._2023__ADO.NET_
                 Pairs.Add(pair);
             }
         }
+        private void Button14_Click(object sender, RoutedEventArgs e)
+        {
+            var query = dataContext.Departments.Include(d => d.MainManagers).Where(d => d.DeleteDt == null)
+                .Select(d => new Pair { Key = d.Name, Value = d.MainManagers.Count().ToString() });
+            Pairs.Clear();
+            foreach (var pair in query)
+            {
+                Pairs.Add(pair);
+            }
+        }
+        private void Button15_Click(object sender, RoutedEventArgs e)
+        {
+            var query = dataContext.Departments.Include(d => d.SecManagers).Where(d => d.DeleteDt == null)
+                .Select(d => new Pair { Key = d.Name, Value = d.SecManagers.Count().ToString() });
+            Pairs.Clear();
+            foreach (var pair in query)
+            {
+                Pairs.Add(pair);
+            }
+        }
+        private void Button16_Click(object sender, RoutedEventArgs e)
+        {
+            IQueryable<Pair> query = dataContext.Departments
+             .Where(d => d.DeleteDt == null)
+             .OrderByDescending(d => Convert.ToInt32(d.MainManagers.Count()))
+             .Select(d => new Pair
+             {
+                 Key = d.Name,
+                 Value = (d.MainManagers.Count() != 0) ? d.MainManagers.Count().ToString() : "закрытый"
+             });
+
+            Pairs.Clear();
+            foreach (var pair in query)
+            {
+                Pairs.Add(pair);
+            }
+        }
         private void ListViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (sender is ListViewItem item)
@@ -244,6 +285,7 @@ namespace Занятие_в_аудитории_1_29._08._2023__ADO.NET_
                             {
                                 department.DeleteDt = DateTime.Now;
                                 dataContext.SaveChanges();
+                                departmentsListView.Refresh();
                             }
                             else
                             {
@@ -253,9 +295,21 @@ namespace Занятие_в_аудитории_1_29._08._2023__ADO.NET_
                                     dep.Name = department.Name;
                                 }
                                 dataContext.SaveChanges();
-                                int index = DepartmentsV.IndexOf(department);
-                                DepartmentsV.Remove(department);
-                                DepartmentsV.Insert(index, department);
+                                departmentsListView.Refresh();
+                                //DepartmentsV.Clear();
+                                //dataContext.Departments.Load();
+                                //departmentsList.ItemsSource = DepartmentsV;
+                               //dataContext.Departments.Load();
+                               //DepartmentsV = dataContext.Departments.Local.ToObservableCollection();
+                               //departmentsList.ItemsSource = DepartmentsV;
+                               //departmentsListView.Refresh();
+                                //departmentsListView.Filter = item => true;
+                                //departmentsListView.Filter = item => true;
+                                //departmentsListView.Filter = item => (item as Department)?.DeleteDt == null;
+
+                                //int index = DepartmentsV.IndexOf(department);
+                                //DepartmentsV.Remove(department);
+                                //DepartmentsV.Insert(index, department);
                             }
                         }
                         else

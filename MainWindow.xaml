@@ -74,6 +74,12 @@
                         Click="Button12_Click"/>
                 <Button Content="Thirteen" x:Name="Button13"
                         Click="Button13_Click"/>
+                <Button Content="Fourteen" x:Name="Button14"
+                        Click="Button14_Click"/>
+                <Button Content="Fiveteen" x:Name="Button15"
+                        Click="Button15_Click"/>
+                <Button Content="Sixteen" x:Name="Button16"
+                        Click="Button16_Click"/>
             </WrapPanel>
             <ListView Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Pairs}"
                       ScrollViewer.VerticalScrollBarVisibility="Auto">

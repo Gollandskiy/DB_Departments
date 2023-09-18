@@ -27,5 +27,6 @@ namespace Занятие_в_аудитории_1_29._08._2023__ADO.NET_
         public Department? SecDep { get; set; }
 
         public Manager Chief { get; set; }
+        public IEnumerable<Manager> Subordinates { get; set; }
     }
 }

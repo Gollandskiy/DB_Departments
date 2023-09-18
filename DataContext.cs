@@ -23,7 +23,7 @@ namespace Занятие_в_аудитории_1_29._08._2023__ADO.NET_
         {
             modelBuilder.Entity<Manager>().
                 HasOne(m => m.MainDep).
-                WithMany().
+                WithMany(d => d.MainManagers).
                 HasForeignKey(m => m.IdMainDep).
                 HasPrincipalKey(d => d.Id);
 
@@ -32,11 +32,25 @@ namespace Занятие_в_аудитории_1_29._08._2023__ADO.NET_
                 HasForeignKey(m => m.IdSecDep).
                 HasPrincipalKey(d => d.Id);
 
+            modelBuilder.Entity<Department>().
+                HasMany(d => d.SecManagers).WithOne().
+                HasForeignKey(m => m.IdSecDep);
+
             modelBuilder.Entity<Manager>().
                 HasOne(m => m.Chief).
                 WithMany().
                 HasForeignKey(m => m.IdChief).
                 HasPrincipalKey(d => d.Id);
+
+            modelBuilder.
+                Entity<Manager>().
+                HasIndex(m => m.Login).
+                IsUnique();
+
+            modelBuilder.
+                Entity<Manager>().
+                Property(m => m.Name).
+                HasMaxLength(100);
         }
 
     }
